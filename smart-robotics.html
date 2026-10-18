@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMART ROBOTICS — IARC XII</title>
+<style>
+  :root{
+    --navy-950:#0a0e18;
+    --navy-900:#0d1220;
+    --navy-800:#121a2e;
+    --navy-700:#1a2440;
+    --gold-400:#e8c07d;
+    --gold-500:#d9a94f;
+    --blue-400:#5b7fd4;
+    --blue-500:#3f5fb5;
+    --text-soft:#b7c0d6;
+    --text-dim:#7c869e;
+    --white:#f4f6fb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--navy-950);
+    color:var(--white);
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+    padding:40px 24px 80px;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  .deco-gear{position:absolute;pointer-events:none;filter:drop-shadow(0 0 24px rgba(217,169,79,0.2));animation:gearSpin 24s linear infinite;}
+  .deco-gear.reverse{animation-direction:reverse;}
+  @keyframes gearSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .deco-diamond{
+    position:absolute;width:26px;height:26px;border:2px solid var(--blue-400);
+    transform:rotate(45deg);display:flex;align-items:center;justify-content:center;opacity:0.75;
+  }
+  .deco-diamond span{width:9px;height:9px;border-radius:50%;background:var(--gold-400);}
+  .deco-circle{position:absolute;width:16px;height:16px;border-radius:50%;border:1px solid rgba(217,169,79,0.4);}
+
+  .back-btn{
+    position:absolute;top:40px;left:40px;z-index:5;
+    width:42px;height:42px;border-radius:50%;
+    border:1px solid rgba(255,255,255,0.2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;color:var(--white);
+  }
+  .top-logo{display:flex;justify-content:center;margin-bottom:36px;}
+  .top-logo img{height:60px;width:auto;}
+
+  .frame-wrap{max-width:960px;margin:0 auto;position:relative;z-index:1;}
+  .octagon{
+    position:relative;
+    background:linear-gradient(180deg,var(--navy-800),var(--navy-900));
+    clip-path:polygon(6% 0%,94% 0%,100% 15%,100% 85%,94% 100%,6% 100%,0% 85%,0% 15%);
+    padding:48px 56px;
+  }
+  .octagon::before{
+    content:"";position:absolute;inset:0;
+    clip-path:polygon(6% 0%,94% 0%,100% 15%,100% 85%,94% 100%,6% 100%,0% 85%,0% 15%,
+                       0% 15%,1.4% 15.8%,1.4% 84.2%,6.7% 99%,93.3% 99%,98.6% 84.2%,98.6% 15.8%,93.3% 1%,6.7% 1%,1.4% 15.8%);
+    background:linear-gradient(135deg,var(--gold-500),rgba(217,169,79,0.4) 40%, rgba(217,169,79,0.4) 60%, var(--gold-500));
+    opacity:0.55;
+    pointer-events:none;
+  }
+  .octagon-inner{position:relative;z-index:1;}
+
+  .page-title{
+    text-align:center;font-size:1.7rem;font-weight:800;letter-spacing:1px;margin-bottom:26px;
+  }
+  .page-title .accent{color:var(--gold-400);}
+
+  .page-desc{
+    color:var(--text-soft);line-height:1.85;font-size:1rem;text-align:center;
+    max-width:780px;margin:0 auto 36px;
+  }
+
+  .kategori-title{
+    text-align:center;font-weight:800;letter-spacing:2px;font-size:1rem;margin-bottom:24px;
+  }
+
+  .kategori-grid{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:18px;
+  }
+  .kategori-card{
+    border:1px solid rgba(217,169,79,0.3);
+    border-radius:6px;
+    padding:22px 26px;
+    text-align:center;
+    min-width:150px;
+    background:rgba(217,169,79,0.02);
+  }
+  .kategori-card h4{font-size:0.95rem;letter-spacing:1px;margin-bottom:16px;}
+  .kategori-card a,
+  .daftar-card a{
+    display:inline-block;padding:9px 20px;border-radius:6px;
+    font-weight:700;font-size:0.85rem;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:#241a06;
+  }
+
+  /* Registration: one form for all categories */
+  .daftar-wrap{display:flex;justify-content:center;margin-top:24px;}
+  .daftar-card{
+    border:1px solid rgba(217,169,79,0.45);
+    border-radius:6px;
+    padding:22px 26px;
+    text-align:center;
+    width:100%;max-width:498px;
+    background:rgba(217,169,79,0.04);
+  }
+  .daftar-card h4{font-size:0.95rem;letter-spacing:1px;margin-bottom:6px;}
+  .daftar-card p{color:var(--text-dim);font-size:0.82rem;margin-bottom:16px;}
+
+  @media(max-width:700px){
+    .octagon{padding:40px 28px;}
+    .kategori-card{flex:1 1 40%;}
+  }
+</style>
+</head>
+<body>
+
+  <img class="deco-gear" src="gear-logo.png" alt="" style="top:-40px;right:-40px;width:190px;opacity:0.9;">
+  <img class="deco-gear reverse" src="gear-logo.png" alt="" style="top:220px;right:-40px;width:150px;opacity:0.85;">
+  <img class="deco-gear" src="gear-logo.png" alt="" style="bottom:-60px;left:-60px;width:220px;opacity:0.9;">
+  <img class="deco-gear reverse" src="gear-logo.png" alt="" style="bottom:260px;left:-40px;width:130px;opacity:0.85;">
+  <div class="deco-diamond" style="top:420px;right:60px;"><span></span></div>
+  <div class="deco-diamond" style="top:610px;left:16px;"><span></span></div>
+  <div class="deco-circle" style="top:200px;right:60px;"></div>
+  <div class="deco-circle" style="top:800px;left:90px;"></div>
+
+  <a href="index.html#competition" class="back-btn">‹</a>
+
+  <div class="top-logo"><img src="logo-full.png" alt="IARC XII"></div>
+
+  <div class="frame-wrap">
+    <div class="octagon">
+      <div class="octagon-inner">
+        <h1 class="page-title"><span class="accent">SMART</span> ROBOTICS</h1>
+        <p class="page-desc">Smart Robotics is a robotics competition in which participants design, build, and program a microcontroller-based robot capable of automatically following a path on the track. The robot is designed to detect the track's line using sensors, then process it through the microcontroller so it can navigate quickly and accurately. Robots are not only required to follow the path but must also handle various obstacles and technical challenges that have been prepared, such as sharp turns, checkpoints, path branches, and mission challenges to move simple objects.</p>
+
+        <h2 class="kategori-title">CATEGORIES</h2>
+        <div class="kategori-grid">
+          <div class="kategori-card">
+            <h4>ELEMENTARY</h4>
+            <a href="https://its.id/m/GuidebookSmartRobotSDIARCXII" target="_blank" rel="noopener">Guidebook</a>
+          </div>
+          <div class="kategori-card">
+            <h4>JUNIOR HIGH</h4>
+            <a href="https://its.id/m/GuidebookSmartRobotSMPIARCXII" target="_blank" rel="noopener">Guidebook</a>
+          </div>
+          <div class="kategori-card">
+            <h4>SENIOR HIGH/VOCATIONAL</h4>
+            <a href="https://its.id/m/GuidebookSmartRobotSMAIARCXII" target="_blank" rel="noopener">Guidebook</a>
+          </div>
+          <div class="kategori-card">
+            <h4>UNIVERSITY</h4>
+            <a href="https://its.id/m/GuidebookSmartRobotMahasiswaIARCXII" target="_blank" rel="noopener">Guidebook</a>
+          </div>
+        </div>
+
+        <div class="daftar-wrap">
+          <div class="daftar-card">
+            <h4>REGISTRATION</h4>
+            <p>One registration form for all categories</p>
+            <a href="https://its.id/m/FormRegistSmartRobotIARCXII" target="_blank" rel="noopener">Register Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

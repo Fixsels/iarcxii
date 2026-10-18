@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<!-- BUILD: timeline-fullwidth-v3-mobile -->
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>IARC XII — Industrial Automation & Robotic Competition</title>
+<style>
+  :root{
+    --navy-950:#0a0e18;
+    --navy-900:#0d1220;
+    --navy-800:#121a2e;
+    --navy-700:#1a2440;
+    --gold-400:#e8c07d;
+    --gold-500:#d9a94f;
+    --blue-400:#5b7fd4;
+    --blue-500:#3f5fb5;
+    --text-soft:#b7c0d6;
+    --text-dim:#7c869e;
+    --white:#f4f6fb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy-950);
+    color:var(--white);
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    overflow-x:hidden;
+  }
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+
+  /* ===== NAVBAR ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,14,24,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;max-width:1200px;margin:0 auto;gap:24px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;letter-spacing:1px;flex-shrink:0;}
+  .logo-mark{
+    width:auto;height:34px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo-mark img{height:100%;width:auto;object-fit:contain;}
+  .nav-links{display:flex;gap:clamp(16px,2.4vw,34px);list-style:none;font-size:0.92rem;color:var(--text-soft);white-space:nowrap;flex-wrap:nowrap;}
+  .nav-links a:hover{color:var(--gold-400);}
+  .nav-buttons{display:flex;align-items:center;gap:12px;flex-shrink:0;visibility:hidden;pointer-events:none;}
+  .btn-login{
+    padding:9px 20px;border-radius:6px;font-size:0.85rem;font-weight:700;
+    border:1px solid rgba(217,169,79,0.5);color:var(--white);
+  }
+  .btn-register{
+    padding:9px 20px;border-radius:6px;font-size:0.85rem;font-weight:700;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:#241a06;
+  }
+
+  /* Hamburger button — hidden on desktop */
+  .hamburger{
+    display:none;flex-direction:column;justify-content:center;gap:5px;
+    width:38px;height:38px;border:none;background:transparent;cursor:pointer;
+    flex-shrink:0;padding:0;
+  }
+  .hamburger span{
+    display:block;width:100%;height:2px;background:var(--gold-400);
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;
+    max-height:0;overflow:hidden;
+    background:var(--navy-900);
+    border-bottom:1px solid rgba(217,169,79,0.15);
+    transition:max-height .3s ease;
+  }
+  .mobile-menu.open{max-height:520px;}
+  .mobile-menu ul{list-style:none;display:flex;flex-direction:column;padding:8px 20px 14px;}
+  .mobile-menu ul li a{
+    display:block;padding:12px 4px;font-size:1rem;color:var(--text-soft);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .mobile-menu ul li a:active{color:var(--gold-400);}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .nav-buttons{display:none;}
+    .hamburger{display:flex;}
+    .mobile-menu{display:block;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:60px 20px 100px;
+    text-align:center;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 45% 60% at 0% 50%, rgba(217,169,79,0.16), transparent 65%),
+      radial-gradient(ellipse 45% 60% at 100% 50%, rgba(217,169,79,0.16), transparent 65%);
+  }
+  .hero-deco-wrap{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero-deco{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center -60px;
+    opacity:0.95;
+    mix-blend-mode:screen;
+    animation:heroDecoTwinkle 5s ease-in-out infinite;
+  }
+  @keyframes heroDecoTwinkle{
+    0%{opacity:0.55;filter:brightness(0.85);}
+    30%{opacity:1;filter:brightness(1.35);}
+    60%{opacity:0.55;filter:brightness(0.85);}
+    100%{opacity:0.55;filter:brightness(0.85);}
+  }
+  .eyebrow{
+    color:var(--gold-400);font-size:0.8rem;letter-spacing:2px;font-weight:600;margin-bottom:26px;
+    position:relative;z-index:1;
+  }
+  .hero-title{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    font-size:clamp(3rem,9vw,6.2rem);font-weight:800;letter-spacing:2px;
+    position:relative;z-index:1;
+  }
+  .hero-title .grad{
+    background:linear-gradient(180deg,var(--gold-400) 0%, var(--blue-400) 55%, var(--blue-500) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-logo-img{
+    max-width:min(620px,90%);width:100%;height:auto;
+    filter:drop-shadow(0 6px 24px rgba(63,95,181,0.25));
+  }
+  .hero-sub{
+    margin-top:28px;font-size:clamp(1.05rem,4.2vw,1.5rem);font-weight:700;letter-spacing:1.5px;
+    position:relative;z-index:1;
+  }
+  .hero-sub .accent{color:var(--gold-400);}
+  .hero-cta{
+    display:inline-block;margin-top:40px;padding:14px 34px;border-radius:6px;
+    font-weight:700;font-size:0.9rem;letter-spacing:0.5px;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:#241a06;
+    box-shadow:0 8px 28px rgba(217,169,79,0.25);
+    position:relative;z-index:1;
+  }
+  .hero-cta:active{transform:scale(0.97);}
+
+  section{
+    position:relative;padding:70px 0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    background:
+      radial-gradient(ellipse 40% 55% at 0% 50%, rgba(217,169,79,0.12), transparent 65%),
+      radial-gradient(ellipse 40% 55% at 100% 50%, rgba(217,169,79,0.12), transparent 65%);
+  }
+  .honeycomb-bg{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    width:100%;height:100%;
+    -webkit-mask-image:radial-gradient(ellipse 45% 40% at 50% 50%, black 0%, transparent 75%);
+    mask-image:radial-gradient(ellipse 45% 40% at 50% 50%, black 0%, transparent 75%);
+  }
+  .hero{min-height:100vh;align-items:center;justify-content:center;}
+  .section-title{
+    text-align:center;font-size:clamp(1.5rem,5vw,2rem);font-weight:800;letter-spacing:1px;margin-bottom:44px;
+  }
+  .section-title .accent{color:var(--gold-400);}
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:28px;align-items:stretch;
+  }
+  .card{
+    background:linear-gradient(180deg,var(--navy-800),var(--navy-900));
+    border:1px solid rgba(217,169,79,0.18);
+    border-radius:4px;padding:36px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;right:0;
+    width:120px;height:56px;
+    background:linear-gradient(135deg, transparent 48%, rgba(217,169,79,0.55) 49%, rgba(217,169,79,0.85) 52%, var(--navy-700) 53%);
+    pointer-events:none;
+  }
+  .about-card h3{font-size:1.3rem;margin-bottom:20px;letter-spacing:1px;}
+  .about-card h3 .accent{color:var(--gold-400);}
+  .about-card p{color:var(--text-soft);line-height:1.75;margin-bottom:16px;font-size:0.98rem;}
+  .about-media{display:block;height:100%;}
+  .about-media .card{padding:0;overflow:hidden;position:relative;height:100%;background:linear-gradient(180deg,var(--navy-700),var(--navy-900));}
+  .media-slider{width:100%;height:100%;min-height:320px;position:relative;overflow:hidden;}
+  .media-slider .slide-track{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    display:flex;flex-direction:column;
+    transition:transform .7s cubic-bezier(.65,0,.35,1);
+  }
+  .media-slider .slide{
+    width:100%;height:100%;flex:0 0 100%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .media-slider .slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .about-media img{width:100%;height:100%;object-fit:cover;}
+
+  /* ===== PRIZE ===== */
+  .prize{
+    text-align:center;
+  }
+  .prize .eyebrow2{color:var(--white);font-weight:700;letter-spacing:3px;font-size:0.9rem;}
+  .prize .eyebrow2 .accent{color:var(--gold-400);}
+  .prize-amount{
+    margin-top:22px;font-size:clamp(2rem,8vw,3.8rem);font-weight:800;letter-spacing:1px;
+    background:linear-gradient(180deg,var(--gold-400),var(--gold-500));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .gear{position:absolute;opacity:0.5;filter:drop-shadow(0 0 20px rgba(63,95,181,0.2));}
+
+  /* ===== COMPETITION ===== */
+  .comp-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .comp-center{
+    margin:24px auto 0;
+    max-width:560px;
+    background:linear-gradient(180deg,var(--navy-800),var(--navy-900));
+    border:1px solid rgba(217,169,79,0.45);
+    border-radius:4px;padding:34px;text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .comp-center::before{
+    content:"";
+    position:absolute;top:0;right:0;
+    width:110px;height:14px;
+    background:linear-gradient(135deg, transparent 45%, rgba(217,169,79,0.85) 46%, var(--gold-500) 60%, transparent 61%);
+    pointer-events:none;
+  }
+  .comp-center h4{font-size:1.1rem;letter-spacing:0.5px;margin-bottom:12px;color:var(--white);}
+  .comp-center h4 .accent{color:var(--gold-400);}
+  .comp-center p{color:var(--text-dim);font-size:0.85rem;margin-bottom:24px;letter-spacing:0.3px;}
+  .comp-center a{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 22px;border-radius:6px;font-size:0.82rem;font-weight:700;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:#241a06;
+  }
+  .comp-card{
+    background:linear-gradient(180deg,var(--navy-800),var(--navy-900));
+    border:1px solid rgba(217,169,79,0.25);
+    border-radius:4px;padding:34px;text-align:center;
+    transition:border-color .2s ease, transform .15s ease;
+    position:relative;overflow:hidden;
+  }
+  .comp-card::before{
+    content:"";
+    position:absolute;top:0;right:0;
+    width:110px;height:14px;
+    background:linear-gradient(135deg, transparent 45%, rgba(217,169,79,0.85) 46%, var(--gold-500) 60%, transparent 61%);
+    pointer-events:none;
+  }
+  .comp-card:hover{border-color:rgba(217,169,79,0.55);}
+  .comp-card:active{transform:scale(0.98);}
+  .comp-card h4{font-size:1.1rem;margin-bottom:12px;letter-spacing:0.5px;}
+  .comp-card h4 .accent{color:var(--gold-400);}
+  .comp-card p{color:var(--text-dim);font-size:0.85rem;margin-bottom:24px;letter-spacing:0.3px;}
+  .comp-note{
+    display:inline-block;margin-top:2px;margin-bottom:20px;
+    font-size:0.72rem;font-weight:700;letter-spacing:0.3px;
+    color:var(--blue-400);
+    border:1px solid rgba(91,127,212,0.4);
+    background:rgba(91,127,212,0.08);
+    border-radius:20px;padding:5px 14px;
+  }
+  .comp-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 22px;border-radius:6px;font-size:0.82rem;font-weight:700;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:#241a06;
+  }
+
+  /* ===== TIMELINE ===== */
+  .tl-tabs{
+    display:flex;justify-content:center;flex-wrap:wrap;gap:12px;
+    margin:-24px auto 56px;
+  }
+  .tl-tab{
+    font-family:inherit;cursor:pointer;
+    padding:11px 24px;border-radius:6px;font-size:0.88rem;font-weight:700;letter-spacing:0.3px;
+    background:transparent;color:var(--text-soft);
+    border:1px solid rgba(217,169,79,0.35);
+    transition:all .2s ease;
+  }
+  .tl-tab:hover{border-color:rgba(217,169,79,0.7);color:var(--white);}
+  .tl-tab.active{
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));
+    color:#241a06;border-color:transparent;
+  }
+  .tl-panel{display:none;}
+  .tl-panel.active{display:block;animation:tlFade .35s ease;}
+  @keyframes tlFade{from{opacity:0;}to{opacity:1;}}
+
+  .timeline-wrap{width:100%;position:relative;}
+  .tl-line-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible;}
+  .timeline-row{
+    display:flex;justify-content:space-between;position:relative;z-index:1;
+    margin-bottom:90px;gap:12px;
+  }
+  .timeline-row.reverse{flex-direction:row-reverse;}
+  .t-item{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;}
+  .t-item .label-top{font-size:1rem;font-weight:700;margin-bottom:22px;color:var(--white);line-height:1.4;}
+  .t-dot{
+    width:52px;height:52px;
+    background:conic-gradient(from 200deg,var(--gold-500),var(--blue-500));
+    display:flex;align-items:center;justify-content:center;z-index:2;
+    box-shadow:0 0 16px rgba(217,169,79,0.4);
+    border-radius:50%;
+    position:relative;
+  }
+  .t-dot span{width:18px;height:18px;border-radius:50%;background:var(--navy-950);}
+  .t-item .label-bottom{font-size:0.95rem;color:var(--text-dim);margin-top:18px;}
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  .faq-item{
+    background:linear-gradient(180deg,var(--navy-800),var(--navy-900));
+    border:1px solid rgba(217,169,79,0.3);border-radius:6px;
+    padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+    cursor:pointer;font-weight:700;font-size:0.92rem;
+  }
+  .faq-item .chev{color:var(--gold-400);transition:transform .2s ease;flex-shrink:0;}
+  .faq-item.open .chev{transform:rotate(90deg);}
+  .faq-answer{
+    max-height:0;overflow:hidden;color:var(--text-soft);font-size:0.88rem;line-height:1.6;
+    transition:max-height .25s ease;
+  }
+  .faq-item.open + .faq-answer{max-height:200px;padding-top:12px;}
+
+  /* ===== SPONSOR ===== */
+  .sponsor-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:20px;
+  }
+  .sponsor-box{
+    aspect-ratio:2/1;border:1px solid rgba(217,169,79,0.3);border-radius:6px;
+    background:rgba(217,169,79,0.02);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  .sponsor-box.has-logo{background:#fff;}
+  .sponsor-box img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--navy-900);border-top:1px solid rgba(255,255,255,0.06);
+    padding:50px 0 26px;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;
+  }
+  .footer-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;margin-bottom:14px;}
+  .footer-logo .logo-mark{height:44px;}
+  .footer-tagline{color:var(--text-dim);font-size:0.82rem;font-style:italic;}
+  footer h5{font-size:1rem;margin-bottom:16px;}
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  footer ul a{color:var(--text-soft);font-size:0.88rem;}
+  footer ul a:hover{color:var(--gold-400);}
+  .social-list a{display:flex;align-items:center;gap:10px;}
+  .social-list svg{flex-shrink:0;color:var(--gold-400);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.06);padding-top:22px;
+    text-align:center;color:var(--text-dim);font-size:0.78rem;
+  }
+
+  .about-gear{
+    position:absolute;
+    pointer-events:none;
+    z-index:0;
+    filter:drop-shadow(0 0 24px rgba(217,169,79,0.25));
+    animation:gearSpinSlow 22s linear infinite;
+  }
+  @keyframes gearSpinSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .about-diamond{
+    position:absolute;width:22px;height:22px;
+    border:2px solid var(--blue-400);
+    transform:rotate(45deg);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0.75;z-index:0;
+  }
+  .about-diamond span{width:9px;height:9px;border-radius:50%;background:var(--gold-400);}
+
+  /* ===== BACK TO TOP ===== */
+  .back-to-top{
+    position:fixed;right:18px;bottom:18px;z-index:60;
+    width:46px;height:46px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));
+    color:#241a06;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    opacity:0;pointer-events:none;transform:translateY(10px);
+    transition:opacity .25s ease, transform .25s ease;
+    border:none;cursor:pointer;font-size:1.2rem;font-weight:800;
+  }
+  .back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+  /* ===================== MOBILE BREAKPOINTS ===================== */
+  @media(max-width:900px){
+    .wrap{padding:0 20px;}
+    section{padding:56px 0;min-height:auto;}
+    .card{padding:24px;}
+    .about-grid{grid-template-columns:1fr;}
+    .media-slider{min-height:220px;}
+    .comp-grid{grid-template-columns:1fr;gap:18px;}
+    .comp-card,.comp-center{padding:26px;}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:26px;}
+    .sponsor-grid{grid-template-columns:repeat(2,1fr);}
+    .hero{padding:40px 16px 70px;}
+    .hero-cta{padding:13px 28px;font-size:0.85rem;}
+  }
+
+  @media(max-width:760px){
+    .tl-tabs{margin-top:-20px;margin-bottom:36px;}
+    .tl-tab{padding:10px 16px;font-size:0.78rem;}
+    .timeline-row{flex-wrap:wrap;row-gap:36px;margin-bottom:44px;}
+    .t-item{flex:0 0 45%;}
+    .t-item .label-top{font-size:0.82rem;}
+    .t-item .label-bottom{font-size:0.78rem;}
+    .t-dot{width:40px;height:40px;}
+    .tl-line-svg{display:none;}
+  }
+
+  @media(max-width:760px){
+    .about-gear{transform:scale(0.55);opacity:0.5 !important;}
+    .prize .about-gear{display:none;}
+  }
+
+  @media(max-width:480px){
+    .about-gear{display:none;}
+    section{padding:44px 0;}
+    .wrap{padding:0 16px;}
+    .section-title{margin-bottom:32px;}
+    .footer-grid{grid-template-columns:1fr;gap:28px;}
+    .sponsor-grid{grid-template-columns:1fr 1fr;gap:14px;}
+    .hero-title{gap:8px;}
+    .prize-amount{font-size:clamp(1.7rem,9vw,2.6rem);}
+    .faq-item{font-size:0.85rem;padding:16px 16px;}
+    .back-to-top{width:42px;height:42px;right:14px;bottom:14px;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <linearGradient id="gearGrad1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d9a94f"/><stop offset="100%" stop-color="#3f5fb5"/>
+    </linearGradient>
+    <linearGradient id="gearGrad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3f5fb5"/><stop offset="100%" stop-color="#d9a94f"/>
+    </linearGradient>
+    <pattern id="honeycomb" width="90.07" height="156" patternUnits="userSpaceOnUse" patternTransform="translate(-45.03,-26)">
+      <g fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.06">
+        <polygon points="-45.03,-104.00 -45.03,-52.00 -90.07,-26.00 -135.10,-52.00 -135.10,-104.00 -90.07,-130.00"/>
+        <polygon points="45.03,-104.00 45.03,-52.00 0.00,-26.00 -45.03,-52.00 -45.03,-104.00 -0.00,-130.00"/>
+        <polygon points="135.10,-104.00 135.10,-52.00 90.07,-26.00 45.03,-52.00 45.03,-104.00 90.07,-130.00"/>
+        <polygon points="225.17,-104.00 225.17,-52.00 180.13,-26.00 135.10,-52.00 135.10,-104.00 180.13,-130.00"/>
+        <polygon points="0.00,-26.00 0.00,26.00 -45.03,52.00 -90.07,26.00 -90.07,-26.00 -45.03,-52.00"/>
+        <polygon points="90.07,-26.00 90.07,26.00 45.03,52.00 -0.00,26.00 0.00,-26.00 45.03,-52.00"/>
+        <polygon points="180.13,-26.00 180.13,26.00 135.10,52.00 90.07,26.00 90.07,-26.00 135.10,-52.00"/>
+        <polygon points="270.20,-26.00 270.20,26.00 225.17,52.00 180.13,26.00 180.13,-26.00 225.17,-52.00"/>
+        <polygon points="-45.03,52.00 -45.03,104.00 -90.07,130.00 -135.10,104.00 -135.10,52.00 -90.07,26.00"/>
+        <polygon points="45.03,52.00 45.03,104.00 0.00,130.00 -45.03,104.00 -45.03,52.00 -0.00,26.00"/>
+        <polygon points="135.10,52.00 135.10,104.00 90.07,130.00 45.03,104.00 45.03,52.00 90.07,26.00"/>
+        <polygon points="225.17,52.00 225.17,104.00 180.13,130.00 135.10,104.00 135.10,52.00 180.13,26.00"/>
+        <polygon points="0.00,130.00 0.00,182.00 -45.03,208.00 -90.07,182.00 -90.07,130.00 -45.03,104.00"/>
+        <polygon points="90.07,130.00 90.07,182.00 45.03,208.00 -0.00,182.00 0.00,130.00 45.03,104.00"/>
+        <polygon points="180.13,130.00 180.13,182.00 135.10,208.00 90.07,182.00 90.07,130.00 135.10,104.00"/>
+      </g>
+    </pattern>
+    <symbol id="gearIcon" viewBox="0 0 100 100">
+      <path fill-rule="evenodd" d="M 95.43,42.80 L 95.43,57.20 L 83.18,57.42 L 81.20,63.50 L 90.99,70.88 L 82.53,82.53 L 72.48,75.50 L 67.31,79.27 L 70.88,90.99 L 57.20,95.43 L 53.20,83.85 L 46.80,83.85 L 42.80,95.43 L 29.12,90.99 L 32.69,79.27 L 27.52,75.50 L 17.47,82.53 L 9.01,70.88 L 18.80,63.50 L 16.82,57.42 L 4.57,57.20 L 4.57,42.80 L 16.82,42.58 L 18.80,36.50 L 9.01,29.12 L 17.47,17.47 L 27.52,24.50 L 32.69,20.73 L 29.12,9.01 L 42.80,4.57 L 46.80,16.15 L 53.20,16.15 L 57.20,4.57 L 70.88,9.01 L 67.31,20.73 L 72.48,24.50 L 82.53,17.47 L 90.99,29.12 L 81.20,36.50 L 83.18,42.58 Z M 66.00,50.00 L 65.69,53.12 L 64.78,56.12 L 63.30,58.89 L 61.31,61.31 L 58.89,63.30 L 56.12,64.78 L 53.12,65.69 L 50.00,66.00 L 46.88,65.69 L 43.88,64.78 L 41.11,63.30 L 38.69,61.31 L 36.70,58.89 L 35.22,56.12 L 34.31,53.12 L 34.00,50.00 L 34.31,46.88 L 35.22,43.88 L 36.70,41.11 L 38.69,38.69 L 41.11,36.70 L 43.88,35.22 L 46.88,34.31 L 50.00,34.00 L 53.12,34.31 L 56.12,35.22 L 58.89,36.70 L 61.31,38.69 L 63.30,41.11 L 64.78,43.88 L 65.69,46.88 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <nav>
+    <div class="logo">
+      <div class="logo-mark"><img src="logo-full.png" alt="IARC"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#prize">Prize</a></li>
+      <li><a href="#competition">Competition</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#sponsor">Sponsor</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="#" class="btn-login">Login</a>
+      <a href="#" class="btn-register">Register</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#prize">Prize</a></li>
+      <li><a href="#competition">Competition</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#sponsor">Sponsor</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <div class="hero-deco-wrap">
+    <img class="hero-deco" src="hero-deco.png" alt="">
+  </div>
+
+  <div class="eyebrow">DEPARTMENT OF AUTOMATION ELECTRICAL ENGINEERING — ITS SURABAYA</div>
+  <div class="hero-title">
+    <img src="logo-full.png" alt="IARC XII" class="hero-logo-img">
+  </div>
+  <div class="hero-sub">INDUSTRIAL <span class="accent">AUTOMATION</span> &amp;<br>ROBOTIC COMPETITION</div>
+  <a href="#about" class="hero-cta">Explore Competition</a>
+</section>
+
+<section id="about">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <img class="about-gear" src="gear-logo.png" alt="" style="top:-40px;left:-40px;width:200px;opacity:0.85;">
+  <img class="about-gear" src="gear-logo.png" alt="" style="bottom:-60px;right:-30px;width:160px;opacity:0.7;animation-direction:reverse;">
+  <div class="about-diamond" style="top:14%;right:8%;"><span></span></div>
+  <div class="about-diamond" style="bottom:10%;left:6%;"><span></span></div>
+  <div class="wrap about-grid">
+    <div class="card about-card">
+      <h3>ABOUT <span class="accent">IARC</span></h3>
+      <p>IARC (Industrial Automation & Robotics Competition) is a competition that brings together students and university students to test their skills in robotics and automation through creative, innovative, and applicable challenges.</p>
+      <p>IARC serves as a platform for the younger generation to develop technical skills, creativity, problem solving, and teamwork through a technology competition.</p>
+    </div>
+    <div class="about-media">
+      <div class="card">
+        <div class="media-slider" data-interval="3000">
+          <div class="slide-track">
+            <div class="slide"><img src="dokumentasi-1.jpg" alt="Dokumentasi IARC 1"></div>
+            <div class="slide"><img src="dokumentasi-2.jpg" alt="Dokumentasi IARC 2"></div>
+            <div class="slide"><img src="dokumentasi-3.jpg" alt="Dokumentasi IARC 3"></div>
+            <div class="slide"><img src="dokumentasi-4.jpg" alt="Dokumentasi IARC 4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prize" id="prize">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <img class="about-gear" src="gear-logo.png" alt="" style="top:38%;left:-70px;width:150px;opacity:0.85;">
+  <img class="about-gear" src="gear-logo.png" alt="" style="bottom:8%;left:-40px;width:190px;opacity:0.9;animation-direction:reverse;">
+  <img class="about-gear" src="gear-logo.png" alt="" style="top:6%;right:-40px;width:170px;opacity:0.85;">
+  <img class="about-gear" src="gear-logo.png" alt="" style="bottom:10%;right:-30px;width:150px;opacity:0.8;animation-direction:reverse;">
+  <div class="about-diamond" style="top:16%;left:10%;"><span></span></div>
+  <div class="about-diamond" style="bottom:20%;right:12%;"><span></span></div>
+  <div class="wrap">
+    <div class="eyebrow2">TOTAL <span class="accent">PRIZE</span></div>
+    <div class="prize-amount">Rp. 50.000.000+++</div>
+  </div>
+</section>
+
+<section id="competition">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <div class="about-diamond" style="top:10%;right:6%;"><span></span></div>
+  <div class="about-diamond" style="bottom:14%;left:5%;"><span></span></div>
+  <div class="wrap">
+    <h2 class="section-title">COMPETITION</h2>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <h4><span class="accent">AUTOMATION</span> CHALLENGE</h4>
+        <p>Elementary (Microcontroller) • Junior High (Microcontroller) • Senior High/Vocational (PLC &amp; Microcontroller) • University (PLC &amp; Microcontroller)</p>
+        <p style="color:var(--gold-400);font-size:0.78rem;margin-top:-14px;margin-bottom:20px;">🌏 International participants may register for the Microcontroller — University category</p>
+        <a class="comp-btn" href="automation-challenge.html">Tap for detail →</a>
+      </div>
+      <div class="comp-card">
+        <h4><span class="accent">SMART</span> ROBOTICS</h4>
+        <p>Elementary • Junior High • Senior High/Vocational • University</p>
+        <a class="comp-btn" href="smart-robotics.html">Tap for detail →</a>
+      </div>
+    </div>
+    <div class="comp-center">
+      <h4><span class="accent">Main</span> Guidebook</h4>
+      <p>Complete guide for all IARC XII competition branches</p>
+      <a href=" https://its.id/m/GuidebookUtamaCompeIARCXII" target="_blank" rel="noopener">Open Guidebook →</a>
+    </div>
+    <div class="comp-grid" style="margin-top:24px;">
+      <div class="comp-card">
+        <h4><span class="accent">ENERGY</span> TREASURE</h4>
+        <p>Senior High/Vocational • University</p>
+        <a class="comp-btn" href="energy-treasure.html">Tap for detail →</a>
+      </div>
+      <div class="comp-card">
+        <h4><span class="accent">VORTEX</span> COMPETITION</h4>
+        <p>Senior High/Vocational • University</p>
+        <p style="color:var(--gold-400);font-size:0.78rem;margin-top:-14px;margin-bottom:20px;">🌏 International participants may register for the University category</p>
+        <a class="comp-btn" href="kti-gagasan.html">Tap for detail →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <img class="about-gear" src="gear-logo.png" alt="" style="top:20%;left:-60px;width:130px;opacity:0.8;">
+  <img class="about-gear" src="gear-logo.png" alt="" style="bottom:10%;left:-30px;width:170px;opacity:0.85;animation-direction:reverse;">
+  <div class="about-diamond" style="top:10%;left:6%;"><span></span></div>
+  <div class="wrap" style="width:100%;">
+    <h2 class="section-title">TIMELINE</h2>
+    <div class="tl-tabs" role="tablist">
+      <button class="tl-tab active" role="tab" aria-selected="true" data-tab="tl-a">Smart Robotics · PLC · Energy Treasure</button>
+      <button class="tl-tab" role="tab" aria-selected="false" data-tab="tl-b">Microcontroller &amp; Vortex</button>
+    </div>
+
+    <div class="tl-panel active" id="tl-a" role="tabpanel">
+    <div class="timeline-wrap">
+      <svg class="tl-line-svg" preserveAspectRatio="none"><path class="tl-line-path" fill="none" stroke="var(--gold-500)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="timeline-row">
+        <div class="t-item">
+          <div class="label-top">Open registration<br>batch 1</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">September 25 –<br>October 18</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Open registration<br>batch 2</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">October 19 –<br>November 15</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Open registration<br>batch 3</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">November 16 –<br>December 13</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Submission Deadline</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">December 25</div>
+        </div>
+      </div>
+      <div class="timeline-row reverse">
+        <div class="t-item">
+          <div class="label-top">PLC Selection</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">December 26 – 27</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Finalist Announcement</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">December 30</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Technical meeting</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">January 3</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Event Day</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">January 9 – 10</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="tl-panel" id="tl-b" role="tabpanel">
+    <div class="timeline-wrap">
+      <svg class="tl-line-svg" preserveAspectRatio="none"><path class="tl-line-path" fill="none" stroke="var(--gold-500)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="timeline-row">
+        <div class="t-item">
+          <div class="label-top">Open registration<br>batch 1</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">September 25 –<br>October 16</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Open registration<br>batch 2</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">October 17 –<br>November 7</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Open registration<br>batch 3</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">November 8 –<br>November 27</div>
+        </div>
+      </div>
+      <div class="timeline-row reverse">
+        <div class="t-item">
+          <div class="label-top">Microcontroller<br>proposal submission</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">December 11</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Announcement and<br>device design prep</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">December 18</div>
+        </div>
+        <div class="t-item">
+          <div class="label-top">Event Day</div>
+          <div class="t-dot"><span></span></div>
+          <div class="label-bottom">January 9 – 10</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <div class="about-diamond" style="top:16%;right:10%;"><span></span></div>
+  <div class="about-diamond" style="top:40%;left:6%;"><span></span></div>
+  <div class="about-diamond" style="bottom:12%;right:8%;"><span></span></div>
+  <div class="wrap">
+    <h2 class="section-title">FAQ</h2>
+    <div class="faq-list">
+      <div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          What is the IARC competition sequence <span class="chev">›</span>
+        </div>
+        <div class="faq-answer">The IARC competition sequence starts from registration, submission/selection, technical meeting, through to the final and winner announcement according to the timeline schedule.</div>
+      </div>
+      <div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          Who can register <span class="chev">›</span>
+        </div>
+        <div class="faq-answer">Participants from elementary, junior high, senior high/vocational, up to university level can register according to the available competition categories.</div>
+      </div>
+      <div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          Is equipment or robots provided by the committee <span class="chev">›</span>
+        </div>
+        <div class="faq-answer">Equipment requirements differ per competition branch — some are provided by the committee, others must be brought by participants according to the guidebook.</div>
+      </div>
+      <div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          Is accommodation available for participants outside Surabaya <span class="chev">›</span>
+        </div>
+        <div class="faq-answer">The committee provides recommended accommodation information around the event location for participants from outside Surabaya.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sponsor">
+  <svg class="honeycomb-bg" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#honeycomb)"/></svg>
+  <div class="wrap">
+    <h2 class="section-title">SPONSOR</h2>
+    <div class="sponsor-grid">
+      <div class="sponsor-box has-logo">
+        <img src="logo_robokidz.png" alt="Robokidz - Robotics & Computer Learning Center">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="logo-mark"><img src="logo-full.png" alt="IARC"></div>
+        </div>
+        <div class="footer-tagline">"Engineering Systems<br>That Moves the World"</div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#prize">Prize</a></li>
+          <li><a href="#competition">Competition</a></li>
+          <li><a href="#timeline">Timeline</a></li>
+          <li><a href="#sponsor">Sponsor</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li>✉️ iarc2025.hmdteo@gmail.com</li>
+          <li>📍 Surabaya, Indonesia</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Follow</h5>
+        <ul class="social-list">
+          <li>
+            <a href="https://www.linkedin.com/company/iarc-its" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45C23.2 24 24 23.22 24 22.25V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+              <span>@iarc.its</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/iarc.its" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.02-3.58.07-4.85C2.38 3.85 3.9 2.31 7.15 2.16 8.42 2.1 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
+              <span>@iarc.its</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.tiktok.com/@iarc.its" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+              <span>iarc.its</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 IARC — Department of Automation Electrical Engineering, ITS Surabaya. All rights reserved.</div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<script>
+function toggleFaq(el){
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    if(item!==el) item.classList.remove('open');
+  });
+  el.classList.toggle('open');
+}
+
+// ===== Hamburger menu =====
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburgerBtn.addEventListener('click', ()=>{
+  const isOpen = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', isOpen);
+  hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+mobileMenu.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    mobileMenu.classList.remove('open');
+    hamburgerBtn.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded','false');
+  });
+});
+
+// ===== Tab timeline =====
+function drawTimelineCurve(panelEl){
+  if(!panelEl) return;
+  const wrap = panelEl.querySelector('.timeline-wrap');
+  const svg = wrap && wrap.querySelector('.tl-line-svg');
+  const path = svg && svg.querySelector('.tl-line-path');
+  if(!svg || !path) return;
+  const dots = Array.from(wrap.querySelectorAll('.t-dot'));
+  if(dots.length < 2){ path.setAttribute('d',''); return; }
+
+  const wrapRect = wrap.getBoundingClientRect();
+  svg.setAttribute('width', wrapRect.width);
+  svg.setAttribute('height', wrapRect.height);
+  svg.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
+
+  const points = dots.map(dot=>{
+    const r = dot.getBoundingClientRect();
+    return { x: r.left + r.width/2 - wrapRect.left, y: r.top + r.height/2 - wrapRect.top };
+  });
+
+  // Smooth curve through every dot (Catmull-Rom -> Bezier)
+  const tension = 5;
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for(let i=0;i<points.length-1;i++){
+    const p0 = points[i-1] || points[i];
+    const p1 = points[i];
+    const p2 = points[i+1];
+    const p3 = points[i+2] || p2;
+    const cp1x = p1.x + (p2.x - p0.x)/tension;
+    const cp1y = p1.y + (p2.y - p0.y)/tension;
+    const cp2x = p2.x - (p3.x - p1.x)/tension;
+    const cp2y = p2.y - (p3.y - p1.y)/tension;
+    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+  }
+  path.setAttribute('d', d);
+}
+
+function redrawActiveTimeline(){
+  const activePanel = document.querySelector('.tl-panel.active');
+  requestAnimationFrame(()=> drawTimelineCurve(activePanel));
+}
+
+document.querySelectorAll('.tl-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tl-tab').forEach(b=>{
+      b.classList.toggle('active', b===btn);
+      b.setAttribute('aria-selected', b===btn ? 'true' : 'false');
+    });
+    document.querySelectorAll('.tl-panel').forEach(p=>{
+      p.classList.toggle('active', p.id===btn.dataset.tab);
+    });
+    redrawActiveTimeline();
+  });
+});
+
+window.addEventListener('load', redrawActiveTimeline);
+let tlResizeTimer;
+window.addEventListener('resize', ()=>{
+  clearTimeout(tlResizeTimer);
+  tlResizeTimer = setTimeout(redrawActiveTimeline, 150);
+});
+
+// ===== Auto slide-up untuk about-media (ganti tiap 3 detik, loop mulus) =====
+document.querySelectorAll('.media-slider').forEach(slider=>{
+  const track = slider.querySelector('.slide-track');
+  const slides = track.querySelectorAll('.slide');
+  const total = slides.length;
+  const interval = parseInt(slider.dataset.interval || '3000', 10);
+  if(total <= 1) return;
+
+  track.appendChild(slides[0].cloneNode(true));
+
+  let index = 0;
+  setInterval(()=>{
+    index++;
+    track.style.transform = `translateY(-${index * 100}%)`;
+    if(index === total){
+      setTimeout(()=>{
+        track.style.transition = 'none';
+        track.style.transform = 'translateY(0%)';
+        void track.offsetHeight;
+        track.style.transition = '';
+        index = 0;
+      }, 750);
+    }
+  }, interval);
+});
+
+// ===== Back to top button =====
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', ()=>{
+  backToTop.classList.toggle('show', window.scrollY > 500);
+});
+backToTop.addEventListener('click', ()=>{
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+</script>
+
+</body>
+</html>

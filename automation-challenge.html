@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automation Challenge — IARC XII</title>
+<style>
+  :root{
+    --navy-950:#0a0e18;
+    --navy-900:#0d1220;
+    --navy-800:#121a2e;
+    --navy-700:#1a2440;
+    --gold-400:#e8c07d;
+    --gold-500:#d9a94f;
+    --blue-400:#5b7fd4;
+    --blue-500:#3f5fb5;
+    --text-soft:#b7c0d6;
+    --text-dim:#7c869e;
+    --white:#f4f6fb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--navy-950);
+    color:var(--white);
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+    padding:40px 24px 80px;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  .deco-gear{position:absolute;pointer-events:none;filter:drop-shadow(0 0 24px rgba(217,169,79,0.2));animation:gearSpin 24s linear infinite;}
+  .deco-gear.reverse{animation-direction:reverse;}
+  @keyframes gearSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .deco-diamond{
+    position:absolute;width:26px;height:26px;border:2px solid var(--blue-400);
+    transform:rotate(45deg);display:flex;align-items:center;justify-content:center;opacity:0.75;
+  }
+  .deco-diamond span{width:9px;height:9px;border-radius:50%;background:var(--gold-400);}
+  .deco-circle{position:absolute;width:16px;height:16px;border-radius:50%;border:1px solid rgba(217,169,79,0.4);}
+
+  .back-btn{
+    position:absolute;top:40px;left:40px;z-index:5;
+    width:42px;height:42px;border-radius:50%;
+    border:1px solid rgba(255,255,255,0.2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;color:var(--white);
+  }
+  .top-logo{display:flex;justify-content:center;margin-bottom:36px;}
+  .top-logo img{height:60px;width:auto;}
+
+  .frame-wrap{max-width:960px;margin:0 auto;position:relative;z-index:1;}
+  .octagon{
+    position:relative;
+    background:linear-gradient(180deg,var(--navy-800),var(--navy-900));
+    clip-path:polygon(6% 0%,94% 0%,100% 15%,100% 85%,94% 100%,6% 100%,0% 85%,0% 15%);
+    padding:48px 56px;
+  }
+  .octagon::before{
+    content:"";position:absolute;inset:0;
+    clip-path:polygon(6% 0%,94% 0%,100% 15%,100% 85%,94% 100%,6% 100%,0% 85%,0% 15%,
+                       0% 15%,1.4% 15.8%,1.4% 84.2%,6.7% 99%,93.3% 99%,98.6% 84.2%,98.6% 15.8%,93.3% 1%,6.7% 1%,1.4% 15.8%);
+    background:linear-gradient(135deg,var(--gold-500),rgba(217,169,79,0.4) 40%, rgba(217,169,79,0.4) 60%, var(--gold-500));
+    opacity:0.55;
+    pointer-events:none;
+  }
+  .octagon-inner{position:relative;z-index:1;}
+
+  .page-title{
+    text-align:center;font-size:1.7rem;font-weight:800;letter-spacing:1px;margin-bottom:26px;
+  }
+  .page-title .accent{color:var(--gold-400);}
+
+  .page-desc{
+    color:var(--text-soft);line-height:1.85;font-size:1rem;text-align:center;
+    max-width:780px;margin:0 auto 36px;
+  }
+
+  .kategori-title{
+    text-align:center;font-weight:800;letter-spacing:2px;font-size:1rem;margin-bottom:24px;
+  }
+
+  .kategori-grid{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:24px;
+  }
+  .kategori-card{
+    border:1px solid rgba(217,169,79,0.3);
+    border-radius:6px;
+    padding:24px 26px;
+    text-align:center;
+    flex:0 1 300px;
+    background:rgba(217,169,79,0.02);
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .kategori-card h4{font-size:1rem;letter-spacing:1px;margin-bottom:2px;}
+
+  /* Boxes inside category: Guidebook (top) and Registration (bottom) */
+  .kategori-box{
+    border:1px solid rgba(217,169,79,0.25);
+    border-radius:6px;
+    background:rgba(217,169,79,0.03);
+    padding:16px;
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .kategori-box span{
+    font-size:0.78rem;font-weight:700;letter-spacing:1.5px;
+    color:var(--gold-400);text-transform:uppercase;
+  }
+  .kategori-box a{
+    display:inline-block;padding:9px 20px;border-radius:6px;
+    font-weight:700;font-size:0.85rem;
+    background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:#241a06;
+  }
+
+  @media(max-width:700px){
+    .octagon{padding:40px 28px;}
+    .kategori-card{flex:1 1 100%;}
+  }
+</style>
+</head>
+<body>
+
+  <img class="deco-gear" src="gear-logo.png" alt="" style="top:-40px;right:-40px;width:190px;opacity:0.9;">
+  <img class="deco-gear reverse" src="gear-logo.png" alt="" style="top:220px;right:-40px;width:150px;opacity:0.85;">
+  <img class="deco-gear" src="gear-logo.png" alt="" style="bottom:-60px;left:-60px;width:220px;opacity:0.9;">
+  <img class="deco-gear reverse" src="gear-logo.png" alt="" style="bottom:260px;left:-40px;width:130px;opacity:0.85;">
+  <div class="deco-diamond" style="top:420px;right:60px;"><span></span></div>
+  <div class="deco-diamond" style="top:610px;left:16px;"><span></span></div>
+  <div class="deco-circle" style="top:200px;right:60px;"></div>
+  <div class="deco-circle" style="top:800px;left:90px;"></div>
+
+  <a href="index.html#competition" class="back-btn">‹</a>
+
+  <div class="top-logo"><img src="logo-full.png" alt="IARC XII"></div>
+
+  <div class="frame-wrap">
+    <div class="octagon">
+      <div class="octagon-inner">
+        <h1 class="page-title"><span class="accent">AUTOMATION</span> CHALLENGE</h1>
+        <p class="page-desc">Automation Challenge is an automation competition that tests participants' ability to design, program, and develop microcontroller, PLC, or IoT-based systems to solve a given case study. Participants are challenged to produce functional, creative solutions and to implement an automation system through the process of design, programming, testing, and troubleshooting. In the final stage, participants will implement and demonstrate their system live according to the level and category of the competition.</p>
+
+        <h2 class="kategori-title">CATEGORIES</h2>
+        <div class="kategori-grid">
+
+          <!-- MICROCONTROLLER -->
+          <div class="kategori-card">
+            <h4>MICROCONTROLLER</h4>
+            <div class="kategori-box">
+              <span>Guidebook</span>
+              <a href="https://its.id/m/GuidebookIoTIARCXII" target="_blank" rel="noopener">Open Guidebook</a>
+            </div>
+            <div class="kategori-box">
+              <span>Registration</span>
+              <a href="https://its.id/m/FormRegistIoTIARCXII" target="_blank" rel="noopener">Register Now</a>
+            </div>
+          </div>
+
+          <!-- PLC -->
+          <div class="kategori-card">
+            <h4>PLC</h4>
+            <div class="kategori-box">
+              <span>Guidebook</span>
+              <a href="https://its.id/m/GuidebookPLCIARCXII" target="_blank" rel="noopener">Open Guidebook</a>
+            </div>
+            <div class="kategori-box">
+              <span>Registration</span>
+              <a href="https://its.id/m/FormRegistPLCIARCXII" target="_blank" rel="noopener">Register Now</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
